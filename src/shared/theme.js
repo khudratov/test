@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const COLORS = {
   Primary: '#7573F0',
@@ -8,8 +8,8 @@ export const COLORS = {
   GrayTextDarker: '#858692',
   GrayTextDarkerest: '#5D5E68',
   White: '#FFFFFF',
-  Black: '#000000',
-};
+  Black: '#000000'
+}
 
 export const Fonts = {
   ManropeExtraLight: 'Manrope-ExtraLight',
@@ -18,22 +18,22 @@ export const Fonts = {
   ManropeMedium: 'Manrope-Medium',
   ManropeBold: 'Manrope-Bold',
   ManropeExtraBold: 'Manrope-ExtraBold',
-  ManropeSemibold: 'Manrope-SemiBold',
-};
+  ManropeSemibold: 'Manrope-SemiBold'
+}
 
 export const THEME = StyleSheet.create({
   Flex: {
-    flex: 1,
+    flex: 1
   },
   CardContainer: {
     padding: 16,
     borderRadius: 16,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   ShadowLight: {
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    elevation: 2,
-  },
-});
+    elevation: 2
+  }
+})
