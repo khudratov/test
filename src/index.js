@@ -1,12 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Router} from './router';
 
 const App = () => {
-  return (
-    <SafeAreaView>
-      <Text>Clean Project</Text>
-    </SafeAreaView>
-  );
+  return <Router></Router>;
 };
 
 const styles = StyleSheet.create({});
