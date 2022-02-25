@@ -14,11 +14,11 @@ export const Input = (props) => {
 
       <TextInput {...other} style={styles.input} />
 
-      {error && (
+      {error ? (
         <Text mb={verticalScale(10)} size={12} color='red'>
-          I am error
+          {error}
         </Text>
-      )}
+      ) : null}
     </View>
   )
 }

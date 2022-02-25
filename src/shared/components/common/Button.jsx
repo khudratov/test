@@ -16,6 +16,7 @@ export const Button = (props) => {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.4}
       style={[
         styles.wrapper,
         disabled && styles.disabled,
