@@ -7,10 +7,14 @@ import { Container, Space, Text } from '../../shared/components/common'
 import { Loading } from '../../shared/components'
 import { Fonts, THEME } from '../../shared/theme'
 import { useGetRequest } from '../../utils/apiService'
+import { useSelector } from 'react-redux'
 
 export const PostsScreen = () => {
   const navigation = useNavigation()
   const { response, request, loading } = useGetRequest({ url: 'posts' })
+  const state = useSelector((state) => state)
+
+  console.log(state)
 
   useEffect(() => {
     request()

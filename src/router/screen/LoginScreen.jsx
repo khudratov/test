@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View } from 'react-native'
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView'
 
@@ -15,6 +15,7 @@ import { Fonts, THEME } from '../../shared/theme'
 import { useGetRequest } from '../../utils/apiService'
 import { IS_IOS } from '../../utils/constants'
 import { checkAuth } from '../../utils/auth'
+import { useDispatch } from 'react-redux'
 
 export const LoginScreen = () => {
   const navigation = useNavigation()
@@ -22,6 +23,7 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const { request, loading } = useGetRequest({ url: 'users' })
+  const dispatch = useDispatch()
 
   const handleSubmit = async () => {
     const data = await request()
@@ -31,6 +33,7 @@ export const LoginScreen = () => {
     if (check?.error) {
       setError(check.error)
     } else {
+      dispatch({ type: 'LOGIN', payload: { email, password } })
       navigation.navigate('PostsScreen')
     }
   }
