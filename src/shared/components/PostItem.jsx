@@ -6,7 +6,7 @@ import { Text, Flex, Space } from './common'
 import { CommentSvg } from './svg/CommentSvg'
 
 export const PostItem = (props) => {
-  const { title, description, comments, author, ...other } = props
+  const { title, description, commets, author, ...other } = props
 
   return (
     <TouchableOpacity style={[THEME.ShadowLight, styles.container]} {...other}>
@@ -32,7 +32,7 @@ export const PostItem = (props) => {
           <CommentSvg color={COLORS.GrayTextDarker} />
 
           <Text ml={5} color={COLORS.GrayTextDarker}>
-            {comments}
+            {commets}
           </Text>
         </Flex>
       </Flex>

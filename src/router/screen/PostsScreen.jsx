@@ -1,44 +1,29 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { SafeAreaView, StyleSheet, FlatList, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { SafeAreaView, FlatList, View } from 'react-native'
 import { PostItem } from '../../shared/components'
 
 import { Container, Space, Text } from '../../shared/components/common'
+import { Loading } from '../../shared/components'
 import { Fonts, THEME } from '../../shared/theme'
-
-const data = [
-  {
-    id: 1,
-    title: 'Post Title',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla odit perspiciatis sequi quis iusto? Veritatis ut, earum illum consequuntur, cupiditate assumenda adipisci commodi sit error tempore vero minima quam sequi.',
-    author: 'Qudratov Mirjalol',
-    comments: 123
-  },
-  {
-    id: 2,
-    title: 'Post Title 2',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla odit perspiciatis sequi quis iusto? Veritatis ut, earum illum consequuntur, cupiditate assumenda adipisci commodi sit error tempore vero minima quam sequi.',
-    author: 'Qudratov Mirjalol 2',
-    comments: 123
-  },
-  {
-    id: 3,
-    title: 'Post Title 3',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla odit perspiciatis sequi quis iusto? Veritatis ut, earum illum consequuntur, cupiditate assumenda adipisci commodi sit error tempore vero minima quam sequi.',
-    author: 'Qudratov Mirjalol 3',
-    comments: 123
-  }
-]
+import { useGetRequest } from '../../utils/apiService'
 
 export const PostsScreen = () => {
   const navigation = useNavigation()
+  const { response, request, loading } = useGetRequest({ url: 'posts' })
+
+  useEffect(() => {
+    request()
+  }, [])
 
   const handleSubmit = (id) => {
-    navigation.navigate('PostDetailScreen')
+    navigation.navigate('PostDetailScreen', { id })
   }
+
+  if (loading) {
+    return <Loading />
+  }
+
   return (
     <SafeAreaView style={THEME.Flex}>
       <Container style={THEME.Flex}>
@@ -47,10 +32,8 @@ export const PostsScreen = () => {
         </Text>
 
         <FlatList
-          data={data}
+          data={response}
           renderItem={({ item }) => {
-            console.log(item)
-
             return (
               <View key={item.id}>
                 <PostItem
@@ -58,7 +41,7 @@ export const PostsScreen = () => {
                   title={item.title}
                   description={item.description}
                   author={item.author}
-                  comments={item.comments}
+                  commets={item.commets}
                 />
                 <Space height={10} />
               </View>
@@ -70,5 +53,3 @@ export const PostsScreen = () => {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({})
