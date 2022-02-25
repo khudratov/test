@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   StyleSheet,
   SafeAreaView,
@@ -9,11 +9,22 @@ import { Text, Container, Flex, Space } from '../../shared/components/common'
 import { Fonts, THEME, COLORS } from '../../shared/theme'
 import { BookMarkSvg, CommentSvg } from '../../shared/components/svg'
 import { useRoute } from '@react-navigation/native'
+import { useGetRequest } from '../../utils/apiService'
+import { Loading } from '../../shared/components'
 
 export const PostDetailScreen = () => {
   const route = useRoute()
+  const { response, request, loading } = useGetRequest({
+    url: `posts/${route.params.id}`
+  })
 
-  console.log(route.params)
+  useEffect(() => {
+    request()
+  }, [])
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <SafeAreaView style={THEME.Flex}>
@@ -26,22 +37,15 @@ export const PostDetailScreen = () => {
             mt={20}
             color={COLORS.Primary}
           >
-            Title
+            {response?.title}
           </Text>
 
           <Text lineHeight={20} mb={20} color={COLORS.GrayTextDarker}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet
-            commodi soluta veniam placeat animi sed, est a eius dolore
-            molestiae. Voluptate, ab similique totam iusto harum magni iure unde
-            eius itaque eos, deserunt error consectetur. Iure quod fugiat quasi
-            dolores facere laborum optio accusantium! Consequuntur, animi, est
-            inventore cupiditate, saepe tempore sed quaerat laudantium
-            reprehenderit possimus et nesciunt eaque porro autem modi. Accusamus
-            quasi sapiente dolore, architecto consequuntur repudiandae libero?
+            {response?.text}
           </Text>
 
           <Flex justify='space-between' align='center'>
-            <Text color={COLORS.GrayTextDarker}>Mirjalol</Text>
+            <Text color={COLORS.GrayTextDarker}>{response?.author}</Text>
 
             <Flex align='center' justify='center'>
               <TouchableOpacity>
@@ -52,7 +56,7 @@ export const PostDetailScreen = () => {
               <CommentSvg color={COLORS.GrayTextDarker} />
 
               <Text ml={5} color={COLORS.GrayTextDarker}>
-                234
+                {response?.commets}
               </Text>
             </Flex>
           </Flex>
