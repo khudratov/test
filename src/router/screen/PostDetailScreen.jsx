@@ -5,6 +5,9 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+
 import { Text, Container, Flex, Space } from '../../shared/components/common'
 import { Fonts, THEME, COLORS } from '../../shared/theme'
 import { BookMarkSvg, CommentSvg } from '../../shared/components/svg'
@@ -14,9 +17,12 @@ import { Loading } from '../../shared/components'
 
 export const PostDetailScreen = () => {
   const route = useRoute()
+  const { id } = route.params
   const { response, request, loading } = useGetRequest({
-    url: `posts/${route.params.id}`
+    url: `posts/${id}`
   })
+  const dispatch = useDispatch()
+  const { savedPosts } = useSelector((state) => state.posts)
 
   useEffect(() => {
     request()
@@ -24,6 +30,14 @@ export const PostDetailScreen = () => {
 
   if (loading) {
     return <Loading />
+  }
+
+  const toggleSave = () => {
+    if (savedPosts.includes(id)) {
+      dispatch({ type: 'REMOVE_POST', payload: id })
+    } else {
+      dispatch({ type: 'ADD_POST', payload: id })
+    }
   }
 
   return (
@@ -48,8 +62,14 @@ export const PostDetailScreen = () => {
             <Text color={COLORS.GrayTextDarker}>{response?.author}</Text>
 
             <Flex align='center' justify='center'>
-              <TouchableOpacity>
-                <BookMarkSvg color={COLORS.GrayTextDarker} />
+              <TouchableOpacity onPress={toggleSave}>
+                <BookMarkSvg
+                  color={
+                    savedPosts.includes(id)
+                      ? COLORS.Secondary
+                      : COLORS.GrayTextDarker
+                  }
+                />
               </TouchableOpacity>
               <Space width={16} />
 

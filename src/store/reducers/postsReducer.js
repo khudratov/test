@@ -5,12 +5,14 @@ const defaultState = {
 export const postsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'ADD_POST':
-      let posts = [...state.savedPosts, payload]
+      const savedPosts = [...state.savedPosts, action.payload]
 
-      return { ...state, posts }
+      return { ...state, savedPosts }
     case 'REMOVE_POST':
-      let filtered = state.savedPosts.filter((item) => item.id != payload.id)
-      return { ...state, filtered }
+      const filtered = state.savedPosts.filter(
+        (item) => item.id != action.payload.id
+      )
+      return { ...state, savedPosts: filtered }
     default:
       return state
   }
