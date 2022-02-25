@@ -9,7 +9,7 @@ import { Text, Container, Flex, Space } from '../../shared/components/common'
 import { Fonts, THEME, COLORS } from '../../shared/theme'
 import { BookMarkSvg, CommentSvg } from '../../shared/components/svg'
 
-export const PostDetail = () => {
+export const PostDetailScreen = () => {
   return (
     <SafeAreaView style={THEME.Flex}>
       <ScrollView>
@@ -18,6 +18,7 @@ export const PostDetail = () => {
             size={24}
             font={Fonts.ManropeBold}
             mb={20}
+            mt={20}
             color={COLORS.Primary}
           >
             Title

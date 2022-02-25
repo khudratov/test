@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { SafeAreaView, StyleSheet, FlatList, View } from 'react-native'
 import { PostItem } from '../../shared/components'
@@ -33,6 +34,11 @@ const data = [
 ]
 
 export const PostsScreen = () => {
+  const navigation = useNavigation()
+
+  const handleSubmit = (id) => {
+    navigation.navigate('PostDetailScreen')
+  }
   return (
     <SafeAreaView style={THEME.Flex}>
       <Container style={THEME.Flex}>
@@ -48,6 +54,7 @@ export const PostsScreen = () => {
             return (
               <View key={item.id}>
                 <PostItem
+                  onPress={() => handleSubmit(item.id)}
                   title={item.title}
                   description={item.description}
                   author={item.author}

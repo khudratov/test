@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { SafeAreaView, StyleSheet, View } from 'react-native'
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView'
@@ -14,6 +15,8 @@ import { Fonts, THEME } from '../../shared/theme'
 import { IS_IOS } from '../../utils/constants'
 
 export const LoginScreen = () => {
+  const navigation = useNavigation()
+
   return (
     <KeyboardAvoidingView
       behavior={IS_IOS ? 'padding' : undefined}
@@ -44,7 +47,10 @@ export const LoginScreen = () => {
             />
 
             <Space height={15} />
-            <Button label='Submit' />
+            <Button
+              label='Submit'
+              onPress={() => navigation.navigate('PostsScreen')}
+            />
           </Flex>
         </Container>
       </SafeAreaView>
