@@ -1,11 +1,3 @@
-export function auth() {
-  return {
-    headers: {
-      Authorization: `Token ${localStorage.token}`
-    }
-  }
-}
-
 export function checkAuth(email, password, data) {
   const found = data.find((item) => {
     return item.email === email

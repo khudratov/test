@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { auth } from '../utils/auth'
-
 import axios from 'axios'
 import humps from 'humps'
+import { useSelector } from 'react-redux'
+
 import { BASE_URL } from '../../env'
 
 const baseAxios = axios.create({
@@ -56,17 +56,30 @@ export function useDeleteRequest(options = {}) {
   return useRequest({ method: 'DELETE', ...options })
 }
 
+export function useAuthHeader() {
+  const store = useSelector((state) => state)
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${store.user.password}`
+    }
+  }
+
+  return options
+}
+
 export function useRequest(options = {}) {
   const [response, setResponse] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
+  const authHeader = useAuthHeader()
 
   async function request(overrideOptions = {}, sync = false) {
     setLoading(true)
 
     try {
       const { data } = await baseAxios({
-        // ...auth(),
+        ...authHeader,
         ...options,
         ...overrideOptions
       })
