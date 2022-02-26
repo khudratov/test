@@ -3,17 +3,19 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Share
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
 import { Text, Container, Flex, Space } from '../../shared/components/common'
 import { Fonts, THEME, COLORS } from '../../shared/theme'
-import { BookMarkSvg, CommentSvg } from '../../shared/components/svg'
+import { BookMarkSvg, CommentSvg, ShareSvg } from '../../shared/components/svg'
 import { useRoute } from '@react-navigation/native'
 import { useGetRequest } from '../../utils/apiService'
 import { Loading } from '../../shared/components'
+import { BASE_URL } from '../../../env'
 
 export const PostDetailScreen = () => {
   const route = useRoute()
@@ -40,6 +42,16 @@ export const PostDetailScreen = () => {
     }
   }
 
+  handleShare = async () => {
+    try {
+      Share.share({
+        message: `Hey look at that ${BASE_URL}/api/v1/posts/${id}`
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
     <SafeAreaView style={THEME.Flex}>
       <ScrollView>
@@ -62,6 +74,12 @@ export const PostDetailScreen = () => {
             <Text color={COLORS.GrayTextDarker}>{response?.author}</Text>
 
             <Flex align='center' justify='center'>
+              <TouchableOpacity onPress={handleShare}>
+                <ShareSvg color={COLORS.Primary} />
+              </TouchableOpacity>
+
+              <Space width={16} />
+
               <TouchableOpacity onPress={toggleSave}>
                 <BookMarkSvg
                   color={
@@ -71,6 +89,7 @@ export const PostDetailScreen = () => {
                   }
                 />
               </TouchableOpacity>
+
               <Space width={16} />
 
               <CommentSvg color={COLORS.GrayTextDarker} />

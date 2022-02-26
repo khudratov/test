@@ -12,7 +12,7 @@ export const Router = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName='LoginScreen'
+        initialRouteName='PostsScreen'
       >
         <Stack.Screen name='LoginScreen' component={LoginScreen} />
         <Stack.Screen name='PostsScreen' component={PostsScreen} />
